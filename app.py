@@ -46,6 +46,9 @@ def signUp():
 
     except Exception as e:
         return json.dumps({'error':str(e)})
+    else:
+        cursor.close()
+        conn.close()
 
 if __name__ == "__main__":
     app.run(port=5002)
