@@ -7,9 +7,11 @@ $(function(){
 			type: 'POST',
 			success: function(response){
 				console.log(response);
+				$("#status").append(response);
 			},
 			error: function(error){
 				console.log(error);
+				$("#status").append(error);
 			}
 		});
 	});
