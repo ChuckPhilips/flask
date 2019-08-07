@@ -15,8 +15,10 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerFlask = docker.build flask_app + ":$BUILD_NUMBER"
-           dockerMysql = docker.build(flask_mysql + ":$BUILD_NUMBER", "./mysql")
+          dockerFlaskbuild = docker.build flask_app + ":$BUILD_NUMBER"
+          dockerFlask = docker.build flask_app + ":latest"
+          dockerMysqlbuild = docker.build(flask_mysql + ":$BUILD_NUMBER", "./mysql")
+          dockerMysql = docker.build(flask_mysql + ":latest", "./mysql")
         }
       }
     }
@@ -25,7 +27,9 @@ pipeline {
         script {
           docker.withRegistry( '', registryCredential ) {
             dockerFlask.push()
+            dockerFlaskbuild.push()
             dockerMysql.push()
+            dockerMysqlbuild.push()
           }
         }
       }
@@ -33,7 +37,9 @@ pipeline {
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $flask_app:$BUILD_NUMBER"
+        sh "docker rmi $flask_app:latest"
         sh "docker rmi $flask_mysql:$BUILD_NUMBER"
+        sh "docker rmi $flask_mysql:latest"
       }
     }
   }
