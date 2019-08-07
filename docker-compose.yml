@@ -1,0 +1,22 @@
+version: '3.4'
+services:
+  flask_app:
+    image: zgchuck/flask_app
+    build:
+      context: .
+    ports:
+      - 5002:5002
+    networks:
+      - flask
+
+  flask_mysql:
+    image: zgchuck/flask_mysql
+    build:
+      context: ./mysql
+    ports:
+      - 3306:3306
+    networks:
+      - flask
+networks:
+  flask:
+
