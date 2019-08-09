@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="print.css" type="text/css" media="print"> 
+		<link rel="stylesheet" href="plugins/fancy-type/screen.css" type="text/css" media="print"> 
+		<link rel="stylesheet" href="src/grid.css" type="text/css" media="print"> 
+		<!--[if lt IE 8]>
+  			<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+
+		<style>
+			body{background-color: #5e5e5e; background-image: url("bgxy.png")}
+			
+			#logo {height: 50px}
+			#navigation {height: 30px}
+			
+			.container { background-color: white; margin-top: 5px; margin-bottom: 5px; border-radius: 25px; }
+			.item { border-radius: 25px; }
+			.block { border: 1px solid grey; border-radius: 5px; min-height: 150px; margin-left: 1.5px; }
+			.block .top { height:20px; background-color: black; color: white; border-radius: 5px; min-height: 10px; }
+			.box { background-color: white; border: 1px solid grey; }
+
+			#header ul {
+  				list-style-type: none;
+  				margin: 10px 0 0 10px;
+  				padding: 0;
+			}
+
+			#header li {
+				display: inline;
+				float: left;
+			}
+
+			#header li a {
+				display: block;
+				color: white;
+  				text-align: center;
+  				padding: 14px 16px;
+  				text-decoration: none;
+				background-color: black;
+			}
+
+			#header li a:hover {
+				background-color: red;
+			}
+
+			#footer ul {
+  				list-style-type: none;
+  				margin: auto;
+  				padding: 0;
+			}
+
+			#footer li {
+				display: inline;
+				float: left;
+			}
+
+			#footer li a {
+				display: block;
+				color: black;
+  				text-align: center;
+  				text-decoration: none;
+				padding: 0px 10px 0px 10px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id='container' class='container'>
+			<div id='header' class='span-24'>
+				<ul>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+				</ul>
+			</div>
+			<div id='logo' class='span-24'>logo</div>
+			<div id='navigation' class='span-24'>navigation</div>
+			<div id='body' class='span-24'>
+				<div id='column_left' class='span-6 border'>
+					<div class='block append-bottom'>
+						<div class='top'>Top</div>
+						<div>box</div>
+					</div>
+					<div class='block append-bottom'>
+						<div class='top'>Top</div>
+						<div>box</div>
+					</div>
+					<div class='block append-bottom'>
+						<div class='top'>Top</div>
+						<div>box</div>
+					</div>
+				</div>
+				<div id='columnt_center' class='span-12 border'>
+					<div class='item box'>
+						<div>Proizvod</div>
+						<img src='Climb Steep Hills While Cycling.jpg' />
+					</div>
+					<div class='item box'>
+						<div>Proizvod</div>
+						<img src='Climb Steep Hills While Cycling.jpg' />
+					</div>
+					<div class='item box'>
+						<div>Proizvod</div>
+						<img src='Climb Steep Hills While Cycling.jpg' />
+					</div>
+				</div>
+				<div id='column_right' class='span-6 last'>
+					<div class='block append-bottom'>
+						<div class='top'>Top</div>
+						<div>box</div>
+					</div>
+				</div>
+			</div>
+			<div id='footer' class='span-24'>
+				<ul>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+					<li><a href='/'>Naslovna</a></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
