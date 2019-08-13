@@ -44,7 +44,7 @@ pipeline {
     }
     stage('Updated kubernetes deployment'){
     	steps{
-		sh "ssh osboxes@kubemaster 'kubectl get all'"
+		sh "ssh -o StrictHostKeyChecking=no osboxes@kubemaster 'kubectl set image deployment/flask-app-deployment=flask_app + :$BUILD_NUMBER'"
 	}
     }
   }
