@@ -42,5 +42,10 @@ pipeline {
         sh "docker rmi $flask_mysql:latest"
       }
     }
+    stage('Updated kubernetes deployment'){
+    	steps{
+		sh "ssh osboxes@kubemaster 'kubectl get all'"
+	}
+    }
   }
 }
