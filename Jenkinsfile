@@ -47,7 +47,7 @@ pipeline {
     }
     stage('Updated kubernetes deployment'){
     	steps{
-		sh "ssh -i $ssh_creds $ssh_creds_usr@kubemaster 'kubectl set image deployment/flask-app-deployment flask-app=flask_app:$BUILD_NUMBER'"
+		sh "ssh -i $ssh_creds $ssh_creds_usr@kubemaster 'kubectl set image deployment/flask-app-deployment flask-app=zgchuck/flask_app:$BUILD_NUMBER'"
 	}
     }
   }
