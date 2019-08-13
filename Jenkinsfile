@@ -1,17 +1,20 @@
 pipeline {
-  environment {
-    flask_app = "zgchuck/flask_app"
-    flask_mysql = "zgchuck/flask_mysql"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-  }
-  agent any
-  stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/ChuckPhilips/flask'
-      }
-    }
+  	environment {
+    		flask_app = "zgchuck/flask_app"
+    		flask_mysql = "zgchuck/flask_mysql"
+    		registryCredential = 'dockerhub'
+    		dockerImage = ''
+		ssh_creds = credentials('osboxes')
+  	}
+
+  	agent any
+
+  	stages {
+   		stage('Cloning Git') {
+      			steps {
+        			git 'https://github.com/ChuckPhilips/flask'
+      			}
+    		}
     stage('Building image') {
       steps{
         script {
@@ -44,7 +47,7 @@ pipeline {
     }
     stage('Updated kubernetes deployment'){
     	steps{
-		sh "ssh -o StrictHostKeyChecking=no osboxes@kubemaster 'kubectl set image deployment/flask-app-deployment=flask_app + :$BUILD_NUMBER'"
+		sh "ssh -i $ssh_creds $ssh_creds_usr@kubemaster 'kubectl set image deployment/flask-app-deployment=flask_app + :$BUILD_NUMBER'"
 	}
     }
   }
