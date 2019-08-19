@@ -1,22 +1,37 @@
 version: '3.4'
 services:
-  flask_app:
-    image: zgchuck/flask_app
-    build:
-      context: .
-    ports:
-      - 5002:5002
-    networks:
-      - flask
+        flask_app:
+                image: zgchuck/flask_app
+                build:
+                        context: ./app
+                ports:
+                        - 5002:5002
+                networks:
+                        - flask
 
-  flask_mysql:
-    image: zgchuck/flask_mysql
-    build:
-      context: ./mysql
-    ports:
-      - 3306:3306
-    networks:
-      - flask
+        flask-mysql-service:
+                image: zgchuck/flask_mysql
+                build:
+                        context: ./mysql
+                ports:
+                        - 3306:3306
+                secrets:
+                        - mysql_root_pass
+                        - wp_db_pass
+                environment:
+                        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_pass
+                        MYSQL_PASSWORD_FILE: /run/secrets/wp_db_pass       
+                        MYSQL_DATABASE: BucketList
+                        MYSQL_USER: jay
+                networks:
+                        - flask
+
+secrets:
+        wp_db_pass:
+                file: ./secrets/wp_db_pass.txt
+        mysql_root_pass:
+                file: ./secrets/mysql_root_pass.txt
+
 networks:
-  flask:
+        flask:
 
