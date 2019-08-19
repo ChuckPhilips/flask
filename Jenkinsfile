@@ -19,8 +19,8 @@ pipeline {
     		stage('Building image') {
       			steps {
         			script {
-          				dockerFlaskbuild = docker.build flask_app + ":$BUILD_NUMBER"
-          				dockerFlask = docker.build flask_app + ":latest"
+          				dockerFlaskbuild = docker.build(flask_app + ":$BUILD_NUMBER", "./app")
+          				dockerFlask = docker.build(flask_app + ":latest", "./app")
           				dockerMysqlbuild = docker.build(flask_mysql + ":$BUILD_NUMBER", "./mysql")
           				dockerMysql = docker.build(flask_mysql + ":latest", "./mysql")
         			}
