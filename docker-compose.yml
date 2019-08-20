@@ -6,6 +6,12 @@ services:
                         context: ./app
                 ports:
                         - 5002:5002
+                secrets:
+                        - wp_db_pass
+                environment:
+                        MYSQL_PASSWORD_FILE: /run/secrets/wp_db_pass       
+                        MYSQL_DATABASE: BucketList
+                        MYSQL_USER: jay
                 networks:
                         - flask
 
