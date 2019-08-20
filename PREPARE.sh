@@ -1,6 +1,8 @@
 #!/bin/bash
 
+read -p 'Database name: ' database_name
 read -p 'MySQL root password: ' mysql_root_password
+read -p 'Database user: ' database_user
 read -p 'Database user password: ' database_password
 
 if [ ! -d "./secrets" ]; then
@@ -8,4 +10,6 @@ if [ ! -d "./secrets" ]; then
 fi
 
 echo $mysql_root_password > ./secrets/mysql_root_pass.txt
-echo $database_password > ./secrets/wp_db_pass.txt
+echo $database_password > ./secrets/db_pass.txt
+echo $database_user > ./secrets/db_user.txt
+echo $database_name > ./secrets/db_name.txt

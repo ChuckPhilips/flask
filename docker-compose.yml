@@ -7,11 +7,13 @@ services:
                 ports:
                         - 5002:5002
                 secrets:
-                        - wp_db_pass
+                        - db_pass
+                        - db_user
+                        - db_name
                 environment:
-                        MYSQL_PASSWORD_FILE: /run/secrets/wp_db_pass       
-                        MYSQL_DATABASE: BucketList
-                        MYSQL_USER: jay
+                        MYSQL_PASSWORD: /run/secrets/db_pass       
+                        MYSQL_DATABASE: /run/secrets/db_name
+                        MYSQL_USER: /run/secrets/db_user
                 networks:
                         - flask
 
@@ -22,20 +24,26 @@ services:
                 ports:
                         - 3306:3306
                 secrets:
-                        - mysql_root_pass
-                        - wp_db_pass
+                        - db_root_pass
+                        - db_pass
+                        - db_user
+                        - db_name
                 environment:
-                        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_pass
-                        MYSQL_PASSWORD_FILE: /run/secrets/wp_db_pass       
-                        MYSQL_DATABASE: BucketList
-                        MYSQL_USER: jay
+                        MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_pass
+                        MYSQL_PASSWORD_FILE: /run/secrets/db_pass       
+                        MYSQL_DATABASE_FILE: /run/secrets/db_name
+                        MYSQL_USER_FILE: /run/secrets/db_user
                 networks:
                         - flask
 
 secrets:
-        wp_db_pass:
-                file: ./secrets/wp_db_pass.txt
-        mysql_root_pass:
+        db_name:
+                file: ./secrets/db_name.txt
+        db_user:
+                file: ./secrets/db_user.txt
+        db_pass:
+                file: ./secrets/db_pass.txt
+        db_root_pass:
                 file: ./secrets/mysql_root_pass.txt
 
 networks:

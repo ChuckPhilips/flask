@@ -6,14 +6,22 @@ import os
 mysql = MySQL()
 app = Flask(__name__)
 
-dp = open(os.environ['MYSQL_PASSWORD_FILE'], "r")
-password = dp.read().replace('\n','')
-dp.close()
+f = open(os.environ['MYSQL_PASSWORD'], "r")
+dbpass = f.read().replace('\n','')
+f.close()
+
+f = open(os.environ['MYSQL_USER'], "r")
+dbuser = f.read().replace('\n','')
+f.close()
+
+f = open(os.environ['MYSQL_DATABASE'], "r")
+dbname = f.read().replace('\n','')
+f.close()
 
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = os.environ['MYSQL_USER']
-app.config['MYSQL_DATABASE_PASSWORD'] = password
-app.config['MYSQL_DATABASE_DB'] = os.environ['MYSQL_DATABASE']
+app.config['MYSQL_DATABASE_USER'] = dbuser
+app.config['MYSQL_DATABASE_PASSWORD'] = dbpass
+app.config['MYSQL_DATABASE_DB'] = dbname
 app.config['MYSQL_DATABASE_HOST'] = 'flask-mysql-service'
 mysql.init_app(app)
 
