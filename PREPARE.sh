@@ -1,6 +1,7 @@
 #!/bin/bash
 
-read -p 'Database name: ' database_name
+read -p 'Database name [BucketList]: ' database_name
+database_name=${name:-BucketList}
 read -p 'MySQL root password: ' mysql_root_password
 read -p 'Database user: ' database_user
 read -p 'Database user password: ' database_password
