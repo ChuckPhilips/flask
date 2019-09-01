@@ -9,6 +9,12 @@ pipeline {
 
   	agent any
 
+	parameters {
+		booleanParam(name: 'PUSH_DOCKER_IMAGES', defaultValue: true, description: '')
+		booleanParam(name: 'DELETE_DOCKER_IMAGES', defaultValue: true, description: '')
+		booleanParam(name: 'UPDATE_KUBERNETES_DEPLOYMENT', defaultValue: false, description: '')
+	}
+
   	stages {
    		stage('Cloning Git') {
       			steps {
@@ -28,6 +34,11 @@ pipeline {
     		}
 
     		stage('Deploy Image') {
+	    		when {
+		    		expression{
+			    		return params.PUSH_DOCKER_IMAGES
+		    		}
+	    		}
       			steps {
         			script {
           				docker.withRegistry( '', registryCredential ) {
@@ -41,6 +52,11 @@ pipeline {
     		}
 
     		stage('Remove Unused docker image') {
+	    		when {
+		    		expression{
+			    		return params.DELETE_DOCKER_IMAGES
+		    		}
+	    		}
       			steps{
         			sh "docker rmi $flask_app:$BUILD_NUMBER"
         			sh "docker rmi $flask_app:latest"
@@ -50,6 +66,11 @@ pipeline {
     		}
 
     		stage('Updated kubernetes deployment') {
+	    		when {
+		    		expression{
+			    		return params.UPDATE_KUBERNETES_DEPLOYMENT
+		    		}
+	    		}
     			steps {
 				sh "ssh -i $ssh_creds $ssh_creds_usr@kubemaster 'kubectl set image deployment/flask-app-deployment flask-app=zgchuck/flask_app:$BUILD_NUMBER'"
 			}
