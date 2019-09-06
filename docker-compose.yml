@@ -36,6 +36,15 @@ services:
                 networks:
                         - flask
 
+        flask-haproxy:
+                image: zgchuck/flask-haproxy
+                build:
+                        context: ./haproxy
+                ports:
+                        - 80:80
+                networks:
+                        - flask
+
 secrets:
         db_name:
                 file: ./secrets/db_name.txt
