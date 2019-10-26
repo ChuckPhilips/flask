@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+  labels:
+    app: flask
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: flask-app-pod
+      app: flask
+  template:
+    metadata:
+      name: flask-app-pod
+      labels:
+        name: flask-app-pod
+        app: flask
+    spec:
+      containers:
+        - name: flask-app
+          image: zgchuck/flask_app:latest
+          ports:
+            - containerPort: 80

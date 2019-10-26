@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-mysql-deployment
+  labels:
+    app: flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: flask-mysql-pod
+      app: flask
+  template:
+    metadata:
+      name: flask-mysql-pod
+      labels:
+        name: flask-mysql-pod
+        app: flask
+    spec:
+      containers:
+        - name: flask-mysql
+          image: zgchuck/flask_mysql:latest
+          ports:
+            - containerPort: 3306
