@@ -52,7 +52,7 @@ pipeline {
 				sh '''
 					if test ! -f './secrets/mysql_root_pass.txt'; then
 						echo 'MySQL password file does not exist, building...'
-  						withCredentials([usernameColonPassword(credentialsId: 'flask_mysql_root_password', variable: 'mysql_root_pass')]) {
+  						withCredentials([string(credentialsId: 'flask_mysql_root_password', variable: 'mysql_root_pass')]) {
 							echo $mysql_root_pass > ./secrets/mysql_root_pass2.txt
 						}
 					fi
