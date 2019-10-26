@@ -5,7 +5,6 @@ pipeline {
     		flask_mysql = "zgchuck/flask_mysql"
     		registryCredential = 'dockerhub'
 		ssh_creds = credentials('osboxes')
-		flask_mysql_root_pass = credentials('flask_mysql_root_password')
   	}
 
   	agent any
