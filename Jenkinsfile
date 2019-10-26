@@ -8,6 +8,9 @@ pipeline {
 		flask_mysql_root_pass = credentials('flask_mysql_root_password')
   	}
 
+	node {
+	}
+
   	agent any
 
 	parameters {
@@ -42,10 +45,18 @@ pipeline {
 
 		stage('Create secrets') {
 			steps {
+
+				sh '''
+					if test ! -d './secrets'; then
+						mkdir ./secrets;
+					fi
+				'''
+
 				sh '''
 					if test ! -f './secrets/mysql_root_pass.txt'; then
 						echo 'MySQL password file does not exist, building...'
-						echo flask_mysql_root_pass > ./secrets/mysql_root_pass.txt
+  						withCredentials([usernameColonPassword(credentialsId: 'flask_mysql_root_password', variable: 'mysql_root_pass')]) {}
+						echo $mysql_root_pass > ./secrets/mysql_root_pass2.txt
 					fi
 				'''
 			}
