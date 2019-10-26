@@ -40,20 +40,6 @@ pipeline {
       			}
     		}
 
-		stage('Create secrets') {
-			steps {
-
-				sh '''
-					if test ! -d './secrets'; then
-						mkdir ./secrets;
-					fi
-  					
-					withCredentials([string(credentialsId: 'flask_mysql_root_password', variable: 'mysql_root_pass')]) {
-						echo "$mysql_root_pass" > ./secrets/mysql_root_pass2.txt
-					}
-				'''
-			}
-		}
 	
     		stage('Deploy Image') {
 	    		when {
