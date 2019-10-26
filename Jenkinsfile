@@ -24,6 +24,35 @@ pipeline {
       			}
     		}
 
+            	stage('Generating secrets') {
+                	steps {
+
+                        	sh '''
+                            		if [ ! -d ./secrets ]
+                            		then
+                                		mkdir ./secrets
+                            		fi
+                        	'''
+                    
+                
+                    		withCredentials([string(credentialsId: 'flask_mysql_root_password', variable: 'mysql_root_password')]) {
+                    	    		sh 'echo $mysql_root_password > ./secrets/mysql_root_pass.txt'
+                    		}
+                    	
+                    		withCredentials([string(credentialsId: 'flask_db_user', variable: 'db_user')]) {
+                    	    		sh 'echo $db_user > ./secrets/db_user.txt'
+                    		}
+                    	
+                    		withCredentials([string(credentialsId: 'flask_db_password', variable: 'db_pass')]) {
+                    	    		sh 'echo $db_pass > ./secrets/db_pass.txt'
+                    		}
+                    	
+                    		withCredentials([string(credentialsId: 'flask_db_name', variable: 'db_name')]) {
+                    	    		sh 'echo $db_name > ./secrets/db_name.txt'
+                    		}
+                	}
+            	}
+
     		stage('Building image') {
 	    		when {
 		    		expression{
