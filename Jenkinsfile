@@ -8,9 +8,6 @@ pipeline {
 		flask_mysql_root_pass = credentials('flask_mysql_root_password')
   	}
 
-	node {
-	}
-
   	agent any
 
 	parameters {
