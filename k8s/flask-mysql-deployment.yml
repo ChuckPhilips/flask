@@ -22,3 +22,12 @@ spec:
           image: zgchuck/flask_mysql:latest
           ports:
             - containerPort: 3306
+          env:
+            - name: MYSQL_PASSWORD
+              value: jay
+            - name: MYSQL_USER
+              value: jay
+            - name: MYSQL_DATABASE
+              value: BucketList
+            - name: MYSQL_ROOT_PASSWORD
+              value: somepassword
