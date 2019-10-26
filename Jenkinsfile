@@ -34,7 +34,9 @@ pipeline {
     		}
 
 		stage('Create secrets') {
-			sh 'echo "Checking if secrets files exist."'
+			steps {
+				sh 'echo "Checking if secrets files exist."'
+			}
 		}
 	
     		stage('Deploy Image') {
