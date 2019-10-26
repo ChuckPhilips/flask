@@ -5,11 +5,13 @@ pipeline {
     		flask_mysql = "zgchuck/flask_mysql"
     		registryCredential = 'dockerhub'
 		ssh_creds = credentials('osboxes')
+		flask_mysql_root_pass = credentials('flask_mysql_root_password')
   	}
 
   	agent any
 
 	parameters {
+		booleanParam(name: 'BUILD_DOCKER_IMAGES', defaultValue: true, description: '')
 		booleanParam(name: 'PUSH_DOCKER_IMAGES', defaultValue: true, description: '')
 		booleanParam(name: 'DELETE_DOCKER_IMAGES', defaultValue: true, description: '')
 		booleanParam(name: 'UPDATE_KUBERNETES_DEPLOYMENT', defaultValue: false, description: '')
@@ -23,6 +25,11 @@ pipeline {
     		}
 
     		stage('Building image') {
+	    		when {
+		    		expression{
+			    		return params.BUILD_DOCKER_IMAGES
+		    		}
+	    		}
       			steps {
         			script {
           				dockerFlaskbuild = docker.build(flask_app + ":$BUILD_NUMBER", "./app")
@@ -35,7 +42,12 @@ pipeline {
 
 		stage('Create secrets') {
 			steps {
-				sh 'echo "Checking if secrets files exist."'
+				sh '''
+					if test ! -f './secrets/mysql_root_pass.txt'; then
+						echo 'MySQL password file does not exist, building...'
+						echo flask_mysql_root_pass > ./secrets/mysql_root_pass.txt
+					fi
+				'''
 			}
 		}
 	
