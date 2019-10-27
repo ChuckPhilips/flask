@@ -6,21 +6,6 @@ import os
 mysql = MySQL()
 app = Flask(__name__)
 
-if os.path.isfile('/run/secrets/db_pass'):
-  f = open(os.environ['MYSQL_PASSWORD'], "r")
-  dbpass = f.read().replace('\n','')
-  f.close()
-
-if os.path.isfile('/run/secrets/db_user'):
-  f = open(os.environ['MYSQL_USER'], "r")
-  dbuser = f.read().replace('\n','')
-  f.close()
-
-if os.path.isfile('/run/secrets/db_name'):
-  f = open(os.environ['MYSQL_DATABASE'], "r")
-  dbname = f.read().replace('\n','')
-  f.close()
-
 if "MYSQL_USER" in os.environ:
   dbuser = os.environ['MYSQL_USER']
 
@@ -29,6 +14,22 @@ if "MYSQL_PASSWORD" in os.environ:
 
 if "MYSQL_DATABASE" in os.environ:
   dbname = os.environ['MYSQL_DATABASE']
+
+if os.path.isfile(os.environ['MYSQL_PASSWORD']):
+  f = open(os.environ['MYSQL_PASSWORD'], "r")
+  dbpass = f.read().replace('\n','')
+  f.close()
+
+if os.path.isfile(os.environ['MYSQL_USER']):
+  f = open(os.environ['MYSQL_USER'], "r")
+  dbuser = f.read().replace('\n','')
+  f.close()
+
+if os.path.isfile(os.environ['MYSQL_DATABASE']):
+  f = open(os.environ['MYSQL_DATABASE'], "r")
+  dbname = f.read().replace('\n','')
+  f.close()
+
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = dbuser
