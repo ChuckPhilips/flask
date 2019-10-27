@@ -11,5 +11,5 @@ spec:
       paths:
         - path: /
           backend:
-            serviceName: client-cluster-ip-service
+            serviceName: flask-app-service
             servicePort: 80
