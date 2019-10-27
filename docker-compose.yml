@@ -40,6 +40,8 @@ services:
                 image: zgchuck/flask-haproxy
                 build:
                         context: ./haproxy
+                depends_on:
+                        - flask_app
                 ports:
                         - 80:80
                 networks:
