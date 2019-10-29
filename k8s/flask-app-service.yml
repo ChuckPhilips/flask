@@ -6,9 +6,9 @@ metadata:
     name: flask-app-service
     app: flask
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-    - port: 80
+    - port: 5002
       targetPort: 5002
   selector:
     name: flask-app-pod
