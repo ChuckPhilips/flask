@@ -16,6 +16,8 @@ services:
                         MYSQL_USER: /run/secrets/db_user
                 networks:
                         - flask
+                depends_on:
+                        - flask-mysql-service
 
         flask-mysql-service:
                 image: zgchuck/flask_mysql
@@ -36,16 +38,17 @@ services:
                 networks:
                         - flask
 
-                          #        flask-haproxy:
-                          #                image: zgchuck/flask-haproxy
-                          #                build:
-                          #                        context: ./haproxy
-                          #                depends_on:
-                          #                        - flask_app
-                          #                ports:
-                          #                        - 80:80
-                          #                networks:
-                          #                        - flask
+        flask-haproxy:
+                image: zgchuck/flask-haproxy
+                build:
+                        context: ./haproxy
+                depends_on:
+                        - flask_app
+                        - flask-mysql-service
+                ports:
+                        - 80:80
+                networks:
+                        - flask
 
 secrets:
         db_name:
